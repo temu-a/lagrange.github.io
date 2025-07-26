@@ -13,23 +13,11 @@
       overflow: hidden;
       background-color: black;
       font-family: Arial, sans-serif;
-      direction: rtl;
     }
-
-    #container {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
     #result {
       position: absolute;
       top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
+      right: 20px;
       background: #000;
       color: #0f0;
       padding: 10px 20px;
@@ -38,19 +26,16 @@
       z-index: 9999;
       box-shadow: 0 0 10px rgba(0,255,0,0.3);
     }
-
     #chart {
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
     }
   </style>
 </head>
 <body>
 
-  <div id="container">
-    <div id="result">...</div>
-    <div id="chart"></div>
-  </div>
+  <div id="result">...</div>
+  <div id="chart"></div>
 
   <script src="https://s3.tradingview.com/tv.js"></script>
   <script>
@@ -97,7 +82,23 @@
       enable_publishing: false,
       hide_side_toolbar: true,
       allow_symbol_change: false,
-      container_id: "chart"
+      container_id: "chart",
+      onChartReady: function() {
+        const chart = this.chart();
+        chart.createMultipointShape(
+          [
+            { time: chart.getVisibleRange().from, price: 0.3420 },
+            { time: chart.getVisibleRange().to, price: 0.3420 }
+          ],
+          {
+            shape: 'line',
+            color: '#00FF00',
+            linewidth: 2,
+            disableSelection: true,
+            disableSave: true,
+          }
+        );
+      }
     });
   </script>
 
