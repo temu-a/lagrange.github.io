@@ -12,7 +12,7 @@
       width: 100%;
       overflow: hidden;
       background-color: black;
-      font-family: Arial;
+      font-family: Arial, sans-serif;
     }
     #result {
       position: absolute;
@@ -44,7 +44,7 @@
 
     async function fetchPrice() {
       try {
-        const response = await fetch(https://api.coingecko.com/api/v3/simple/price?ids=${coinGeckoId}&vs_currencies=usd);
+        const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinGeckoId}&vs_currencies=usd`);
         const data = await response.json();
         if (data[coinGeckoId] && data[coinGeckoId].usd) {
           return data[coinGeckoId].usd;
@@ -82,7 +82,23 @@
       enable_publishing: false,
       hide_side_toolbar: true,
       allow_symbol_change: false,
-      container_id: "chart"
+      container_id: "chart",
+      onChartReady: function() {
+        const chart = this.chart();
+        chart.createMultipointShape(
+          [
+            { time: chart.getVisibleRange().from, price: 0.3420 },
+            { time: chart.getVisibleRange().to, price: 0.3420 }
+          ],
+          {
+            shape: 'line',
+            color: '#00FF00',
+            linewidth: 2,
+            disableSelection: true,
+            disableSave: true,
+          }
+        );
+      }
     });
   </script>
 
