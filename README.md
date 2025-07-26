@@ -2,14 +2,14 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.5" />
   <title>LAUSD</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      height: 50%;
-      width: 50%;
+      height: 100%;
+      width: 100%;
       overflow: hidden;
       background-color: black;
       font-family: Arial, sans-serif;
