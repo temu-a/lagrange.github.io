@@ -50,3 +50,4 @@
   <div id="container">
     <div id="result">...</div>
     <div id="chart"></div>
+  </html>
