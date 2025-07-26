@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=0.5" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.7" />
   <title>LAUSD</title>
   <style>
     html, body {
