@@ -50,4 +50,56 @@
   <div id="container">
     <div id="result">...</div>
     <div id="chart"></div>
-  </html>
+  </div>
+
+  <script src="https://s3.tradingview.com/tv.js"></script>
+  <script>
+    const coinGeckoId = 'lagrange';
+    const multiplier = 0.18319176;
+
+    async function fetchPrice() {
+      try {
+        const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinGeckoId}&vs_currencies=usd`);
+        const data = await response.json();
+        if (data[coinGeckoId] && data[coinGeckoId].usd) {
+          return data[coinGeckoId].usd;
+        }
+        throw new Error('السعر غير متاح');
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+    }
+
+    async function updatePrice() {
+      const price = await fetchPrice();
+      const resultDiv = document.getElementById('result');
+      if (price !== null) {
+        const finalPrice = price * multiplier;
+        resultDiv.textContent = finalPrice.toFixed(6) + ' USD';
+      } else {
+        resultDiv.textContent = 'تعذر جلب السعر.';
+      }
+    }
+
+    updatePrice();
+    setInterval(updatePrice, 60000);
+
+    new TradingView.widget({
+      autosize: true,
+      symbol: "COINBASE:LAUSD",
+      interval: "60",
+      timezone: "Asia/Jerusalem",
+      theme: "dark",
+      style: "1",
+      locale: "ar",
+      toolbar_bg: "#000",
+      enable_publishing: false,
+      hide_side_toolbar: true,
+      allow_symbol_change: false,
+      container_id: "chart"
+    });
+  </script>
+
+</body>
+</html>
